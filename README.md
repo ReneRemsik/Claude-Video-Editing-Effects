@@ -1,5 +1,7 @@
 # Claude Video Editing Effects
 
+![All 50 Claude video editing effects](assets/preview.jpg)
+
 50 video effects for Claude Code that are **written from what you actually say**.
 
 Drop a talking-head video into Claude, type `/effects` and an effect name. Claude transcribes your video, works out the topic, the numbers and the key moments, fills the effect with *your* content, times every element to the word it belongs to, checks preview frames so nothing covers your face, and renders the video with your original audio.
@@ -32,7 +34,7 @@ What happens:
 3. **Fill**: each effect has its own instruction file in `effects/<name>.md`, which says how to turn your words into that effect's content and timing.
 4. **Check and render**: preview stills first, then the full video as `yourvideo_effects.mp4`.
 
-## The 50 effects
+## 50 Claude video editing effects
 
 | Effect | What happens |
 |---|---|
