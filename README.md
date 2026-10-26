@@ -87,7 +87,6 @@ What happens:
 | `chat-bubbles` | chat bubbles pop in beside you as a conversation you describe plays out |
 | `lower-third` | a glass name tag slides in at the bottom: who you are and why it matters |
 
-Effects 43–50 are new in this repo and built for transcript-driven edits: `keyword-pop`, `notification-stack`, `post-card`, `chapter-bar`, `search-bar`, `big-number`, `chat-bubbles` and `lower-third`.
 
 ## Add your own effect
 
@@ -101,8 +100,6 @@ Effects 43–50 are new in this repo and built for transcript-driven edits: `key
 - Visuals only: add sound effects and full captions in your editor.
 - Always watch the result before posting. Claude drafts, you approve.
 
-## Credits
+## Licence
 
-Based on [claude-video-effects](https://github.com/Vibha-Ramprakash/claude-video-effects) by Vibha Ramprakash (MIT), which provides the original 42 effects and the rendering engine. This repo adds transcript-aware instructions for each effect, configurable content in place of placeholders, and 8 new effects.
-
-Face tracking: [OpenCV YuNet](https://github.com/opencv/opencv_zoo) (MIT). Person cut-out: [MediaPipe Selfie Segmenter](https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter) (Apache 2.0). Transcription: [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (MIT). Fonts: Archivo Black, Instrument Serif, Space Mono, Inter, Anton, Montserrat, Playfair Display (SIL OFL) and Permanent Marker (Apache 2.0); licences are in `fonts/`. Everything else: MIT, see `LICENSE`.
+MIT, see `LICENSE`. The fonts in `fonts/` and the models in `models/` keep their own licences (see `fonts/*.txt` and `models/NOTICE.md`).

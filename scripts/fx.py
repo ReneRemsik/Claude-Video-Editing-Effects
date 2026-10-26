@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Claude Video Editing Effects: 50 transcript-aware video effects for Claude.
-Based on claude-video-effects by Vibha Ramprakash (MIT).
 
 One effect:    python fx.py orbit in.mp4 out.mp4 --start 3.2 --end 6
 Many effects:  python fx.py --plan plan.json in.mp4 out.mp4
@@ -216,7 +215,7 @@ def cached(e, key, fn):
     return e.state[key]
 
 
-# ---------- the 22 effects ----------
+# ---------- core effects ----------
 @effect('noise', 'reels pile up behind your head, one every quarter second')
 def fx_noise(c, e):
     cw = int(c.W * float(e.o.get('size', 0.34)))
@@ -668,7 +667,7 @@ def fx_cover_star(c, e):
     place(c, mast, c.W / 2, c.H * 0.035 + mast_h / 2 - (1 - k) * mast_h, mast_h / mast.height, 0, al * k, behind=True)
     iss = cached(e, 'i', lambda: text_img(e.o.get('issue', 'THE AI ISSUE  ·  2026'), c.W * 0.025, 'mono', (255, 255, 255), shadow=3))
     place(c, iss, c.W / 2, c.H * 0.03, alpha=al * k, behind=True)
-    lines = e.o.get('lines', '22 effects|you can steal|no editor|needed').split('|')
+    lines = e.o.get('lines', '50 effects|you can steal|no editor|needed').split('|')
     y = c.H * 0.5
     for j, ln in enumerate(lines):
         big = j == 0
@@ -709,7 +708,7 @@ def fx_scribble(c, e):
         place(c, lab, lx, ly - lab.height * 0.15, 0.7 + 0.3 * ease_back((c.lt - 0.7) / 0.3), 8, al)
 
 
-# ---------- pack 2: app-style effects (added 21 Oct 2026) ----------
+# ---------- app-style effects ----------
 def pop(c, t0, dur=0.3): return ease_back((c.lt - t0) / dur) if c.lt > t0 else 0.0
 def fit_font(kind, s, size, max_w):
     while size > 8 and font(kind, size).getlength(s) > max_w: size *= 0.92
@@ -791,7 +790,7 @@ def glass_widgets_v1(c, e):
     a = glass(c, S, S, S * 0.2, mg + S / 2, y_top + S / 2, amt=0.14, dark=gd); d = ImageDraw.Draw(a)
     d.ellipse([S * 0.1, S * 0.115, S * 0.1 + S * 0.06, S * 0.115 + S * 0.06], fill=ORANGE + (255,))
     d.text((S * 0.2, S * 0.145), e.o.get('title', 'Claude'), font=font('uim', S * 0.085), fill=(255, 255, 255, 235), anchor='lm')
-    d.text((S * 0.08, S * 0.2), e.o.get('text', '22'), font=font('uib', S * 0.44), fill=(255, 255, 255, 255))
+    d.text((S * 0.08, S * 0.2), e.o.get('text', '50'), font=font('uib', S * 0.44), fill=(255, 255, 255, 255))
     for j, ln in enumerate(e.o.get('sub', 'effects|one clip').split('|')):
         d.text((S * 0.1, S * (0.7 + 0.11 * j)), ln, font=font('uim', S * 0.085), fill=(255, 255, 255, 235))
     place(c, a, mg + S / 2, y_top + S / 2, 0.6 + 0.4 * pop(c, 0.0), 0, al * clamp(c.lt / 0.1), behind=True)
@@ -829,7 +828,7 @@ def fx_red_collage(c, e):
     w = cached(e, 'w', lambda: fit_text(e.o.get('text', 'EDIT').upper(), c.W * 0.98, 'uib', 700, fill=red, glow=(red, 34)))
     s = 1.12 - 0.12 * ease_out(c.lt / 0.4)
     place(c, w, c.W / 2, max(w.height * 0.42, c.fy - c.fw * 1.05), s, 0, clamp(c.lt / 0.12) * al, behind=True)
-    lines = e.o.get('lines', 'ONE CLIP.|22 EFFECTS.|ZERO APPS.').split('|')
+    lines = e.o.get('lines', 'ONE CLIP.|50 EFFECTS.|ZERO APPS.').split('|')
     size = cached(e, 'sz', lambda: lines_fit(lines, c.W * 0.8, 'uib', int(c.W * 0.14)))
     y = max(c.H * 0.5, c.fy + c.fw * 1.55)
     for j, ln in enumerate(lines):
@@ -927,7 +926,7 @@ def fx_check_pills(c, e):
         gr = thumb_grid(e.cards, 3, 3, int(bw * 0.28), int(bw * 0.025), i0=i * 3)
         im.alpha_composite(gr, ((bw - gr.width) // 2, int(bw * 0.2))); return shadowed(im, 16, 8, 70)
     b1 = cached(e, 'b1', lambda: board(0, e.o.get('handle', '@yourhandle')))
-    b2 = cached(e, 'b2', lambda: board(1, e.o.get('board', 'Reels  ·  22 effects')))
+    b2 = cached(e, 'b2', lambda: board(1, e.o.get('board', 'Reels  ·  50 effects')))
     by = max(H * 0.17, c.fy - c.fw * 0.9)
     place(c, b1, W * 0.25, by, 0.6 + 0.4 * pop(c, 0.0), 8, al * clamp(c.lt / 0.1), behind=True)
     place(c, b2, W * 0.76, by - W * 0.02, 0.6 + 0.4 * pop(c, 0.1), -8, al * clamp((c.lt - 0.1) / 0.1), behind=True)
@@ -1093,7 +1092,7 @@ def fx_broll_split(c, e):
 @effect('phone-fan', 'your reels fan out like a hand of phones in front of you, under a two-line headline')
 def fx_phone_fan(c, e):
     W, H = c.W, c.H; al = fade(c, e)
-    lines = e.o.get('text', '22 effects.|zero editing apps.').split('|')
+    lines = e.o.get('text', '50 effects.|zero editing apps.').split('|')
     S = cached(e, 'sz', lambda: lines_fit(lines, W * 0.84, 'uib', int(W * 0.08)))
     y = max(H * 0.06, c.fy - c.fw * 1.3 - S * 1.3 * len(lines))
     for j, ln in enumerate(lines):
@@ -1295,7 +1294,7 @@ def glass_widgets_v2(c, e):
     a = G(S, S, ax, ay); d = ImageDraw.Draw(a)
     d.ellipse([S * 0.1, S * 0.115, S * 0.16, S * 0.175], fill=ORANGE + (255,))
     d.text((S * 0.2, S * 0.145), e.o.get('title', 'Claude'), font=font('uim', S * 0.085), fill=white + (235,), anchor='lm')
-    d.text((S * 0.08, S * 0.2), e.o.get('text', '38'), font=fit_font('uib', e.o.get('text', '38'), S * 0.44, S * 0.84), fill=white + (255,))
+    d.text((S * 0.08, S * 0.2), e.o.get('text', '50'), font=fit_font('uib', e.o.get('text', '50'), S * 0.44, S * 0.84), fill=white + (255,))
     for j, ln in enumerate(e.o.get('sub', 'effects|one clip').split('|')): d.text((S * 0.1, S * (0.7 + 0.11 * j)), ln, font=font('uim', S * 0.085), fill=white + (235,))
     show(a, ax, ay, 0)
     # 2 · render bar
@@ -1407,7 +1406,7 @@ def comment_sheet(c, e):
     gets a heart, then your reply drops in with a link chip."""
     W, H = c.W, c.H; u = W / 1080; al = fade(c, e)
     word = e.o.get('text', 'EFFECTS'); handle = e.o.get('handle', 'yourhandle')
-    reply = e.o.get('reply', 'Sent you the pack'); chip = e.o.get('chip', '22 effects')
+    reply = e.o.get('reply', 'Sent you the pack'); chip = e.o.get('chip', '50 effects')
     sw, sh = 740 * u, 450 * u
     t_post = 0.3 + 0.06 * len(word) + 0.1; t_heart, t_rep = t_post + 0.25, t_post + 0.4
     sheet = rrect(sw, sh, 30 * u, (38, 38, 40, 248)); d = ImageDraw.Draw(sheet)
@@ -1481,7 +1480,7 @@ def fx_comment_box(c, e):
     (comment_bar if e.o.get('look') == 'bar' else comment_sheet)(c, e)
 
 
-# ---------- pack 3: showcase effects (added 23 Oct 2026) ----------
+# ---------- showcase effects ----------
 def num_parts(s):
     """'197K' -> (197.0, 'K', 0 decimals); '59%' -> (59.0, '%', 0); '4.8' -> (4.8, '', 1)."""
     s = str(s).strip(); i = len(s)
@@ -1701,7 +1700,7 @@ def fx_slow_push(c, e):
     vignette(c, 0.25 * p)
 
 
-# ---------- pack 3 looks: sparkle spotlight, editorial cover, glass bento (added 23 Oct 2026) ----------
+# ---------- looks: sparkle spotlight, editorial cover, glass bento ----------
 def star(size, color=(255, 244, 222)):
     """A 4-point sparkle with a soft glow."""
     s = max(8, int(size)); h = s / 2; t = s * 0.075
@@ -1781,11 +1780,11 @@ def cover_editorial(c, e):
     m = cached(e, 'm', mast)
     s = 1.05 - 0.05 * ease_out(c.lt / 0.5)
     place(c, m, W / 2, H * 0.085 + m.height / 2, s, 0, al * k, behind=True)
-    iss = cached(e, 'i', lambda: tracked(e.o.get('issue', 'THE ONE-CLIP ISSUE  ·  NO. 42  ·  OCTOBER 2026'), int(W * 0.022), 'ui', ink, W * 0.006))
+    iss = cached(e, 'i', lambda: tracked(e.o.get('issue', 'THE ONE-CLIP ISSUE  ·  NO. 50  ·  OCTOBER 2026'), int(W * 0.022), 'ui', ink, W * 0.006))
     place(c, iss, W / 2, H * 0.075, alpha=al * k, behind=True)
     rule = cached(e, 'r', lambda: rrect(W * 0.86, max(3, W // 600), 1, ink + (255,)))
     place(c, rule, W / 2, H * 0.087 + m.height, alpha=al * k * 0.8, behind=True)
-    lines = e.o.get('lines', 'One clip,|42 looks.|NO EDITOR  ·  NO APPS').split('|')
+    lines = e.o.get('lines', 'One clip,|50 looks.|NO EDITOR  ·  NO APPS').split('|')
     styles = [('didonei', 0.085, ink), ('didoneb', 0.105, rose), ('ui', 0.03, ink)]
     y = H * float(e.o.get('lines_y', 0.575))
     for j, ln in enumerate(lines):
@@ -1866,7 +1865,7 @@ _PRIV = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fx_private.py'
 if os.path.exists(_PRIV): exec(open(_PRIV).read(), globals())
 
 
-# ---------- pack 4: transcript effects (keyword pop, notifications, post card, chapters, search, big number, chat, lower third) ----------
+# ---------- transcript effects (keyword pop, notifications, post card, chapters, search, big number, chat, lower third) ----------
 def beats(e, n, key='ticks'):
     """Local start time of each item: from `ticks` (video seconds joined with |), else spread evenly over the effect."""
     raw = [x for x in str(e.o.get(key, '')).split('|') if x.strip()]
