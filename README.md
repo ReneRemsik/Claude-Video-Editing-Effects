@@ -98,7 +98,7 @@ What happens:
 
 ## Honest notes
 
-This is a great starting point to learn what's possible when you edit video with Claude. It isn't built for editing full videos that run a few minutes. The effects work best in short reels, where a few seconds of wow keep viewers watching. For longer videos, use them for a moment or two and do the main edit in a regular video editor.
+This is a great starting point to learn what's possible when you edit video with Claude. It isn't built for editing full videos that run a few minutes. These effects work best in short reels, where a few seconds of visually stunning effects keep viewers watching. For longer videos, use them for a few edits you want and do the main edit in a regular video editor. However, you can also let Claude edit your whole video, but it requires more specific prompting and assets rather than just using "effects" shortcuts.
 
 - These are starter versions. They look best on vertical phone videos with one person facing the camera.
 - Visuals only: add sound effects and full captions in your editor.
